@@ -15,7 +15,7 @@ import Tile, { TileTypes } from "../pathfinding/tile";
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.css", "./app-1.component.css"]
+  styleUrls: ["./app.component.css"]
 })
 export class AppComponent implements AfterContentInit {
   @ViewChild("mapDiv") mapEl: ElementRef;
