@@ -1,0 +1,109 @@
+<div class="fluid-container fh">
+  <div id="sidebar" class="fh bg-dark text-light">
+    <form (submit)="generateMap($event)">
+      <h3>Map</h3>
+      <div class="input-group mb-3 mt-4">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Width</span>
+        </div>
+        <input
+          type="number"
+          class="form-control"
+          aria-describedby="mapWidthAddon"
+          id="inputMapWidth"
+          #inputMapWidth
+          value="24"
+          min="6"
+          max="64"
+        />
+      </div>
+      <div class="input-group mb-3 mt-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Height</span>
+        </div>
+        <input
+          type="number"
+          class="form-control"
+          id="inputMapHeight"
+          #inputMapHeight
+          value="24"
+          min="6"
+          max="64"
+        />
+      </div>
+      <div class="input-group mb-3 mt-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Obstacles Probability</span>
+        </div>
+        <input
+          type="number"
+          class="form-control"
+          id="inputObstaclesProb"
+          #inputObstaclesProb
+          value="0.2"
+          min="0"
+          max="0.6"
+          step="0.1"
+        />
+      </div>
+      <button type="submit" class="btn btn-success float-right">
+        Generate
+      </button>
+      <div class="clearfix"></div>
+    </form>
+    <hr />
+    <h3>Algorithm</h3>
+    <div class="p-2">
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="algorithms"
+          id="inputAStar"
+          checked
+        />
+        <label class="form-check-label" for="exampleRadios1">
+          A*
+        </label>
+      </div>
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="algorithms"
+          id="inputDijkstra"
+        />
+        <label class="form-check-label" for="exampleRadios1">
+          Dijkstra
+        </label>
+      </div>
+    </div>
+    <hr />
+    <div class="form-group row">
+      <label for="inputSpeed" class="col-sm-2 col-form-label mt-1">Speed</label>
+      <div class="col-sm-10 px-4">
+        <nouislider
+          [min]="4"
+          [max]="80"
+          [step]="1"
+          [(ngModel)]="inputSpeed"
+        ></nouislider>
+      </div>
+    </div>
+    <button class="btn btn-success float-right" (click)="run()">Run</button>
+  </div>
+  <div id="map" class="fh" #mapDiv>
+    <div
+      *ngFor="let tile of map.tiles"
+      [ngClass]="getTileClasses(tile)"
+      class="tile"
+      [style.left.px]="tile.col * 32 + 10"
+      [style.top.px]="tile.row * 32 + 10"
+      ng-mouseenter="mouseenter($event, tile)"
+      (click)="click(tile)"
+    ></div>
+  </div>
+</div>
+<!-- (mouseover)="mouseover(tile)" -->
+<!-- (mouseout)="mouseover(tile)" -->
+<!-- (click)="click(tile)" -->
