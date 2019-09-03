@@ -1,4 +1,12 @@
-function astar(nodes, start, target, nodesToAnimate, boardArray, name, heuristic) {
+function astar(
+  nodes,
+  start,
+  target,
+  nodesToAnimate,
+  boardArray,
+  name,
+  heuristic = null
+) {
   if (!start || !target || start === target) {
     return false;
   }
@@ -9,7 +17,7 @@ function astar(nodes, start, target, nodesToAnimate, boardArray, name, heuristic
   while (unvisitedNodes.length) {
     let currentNode = closestNode(nodes, unvisitedNodes);
     while (currentNode.status === "wall" && unvisitedNodes.length) {
-      currentNode = closestNode(nodes, unvisitedNodes)
+      currentNode = closestNode(nodes, unvisitedNodes);
     }
     if (currentNode.distance === Infinity) return false;
     nodesToAnimate.push(currentNode);
@@ -17,18 +25,34 @@ function astar(nodes, start, target, nodesToAnimate, boardArray, name, heuristic
     if (currentNode.id === target) {
       return "success!";
     }
-    updateNeighbors(nodes, currentNode, boardArray, target, name, start, heuristic);
+    updateNeighbors(
+      nodes,
+      currentNode,
+      boardArray,
+      target,
+      name,
+      start,
+      heuristic
+    );
   }
 }
 
 function closestNode(nodes, unvisitedNodes) {
   let currentClosest, index;
   for (let i = 0; i < unvisitedNodes.length; i++) {
-    if (!currentClosest || currentClosest.totalDistance > nodes[unvisitedNodes[i]].totalDistance) {
+    if (
+      !currentClosest ||
+      currentClosest.totalDistance > nodes[unvisitedNodes[i]].totalDistance
+    ) {
       currentClosest = nodes[unvisitedNodes[i]];
       index = i;
-    } else if (currentClosest.totalDistance === nodes[unvisitedNodes[i]].totalDistance) {
-      if (currentClosest.heuristicDistance > nodes[unvisitedNodes[i]].heuristicDistance) {
+    } else if (
+      currentClosest.totalDistance === nodes[unvisitedNodes[i]].totalDistance
+    ) {
+      if (
+        currentClosest.heuristicDistance >
+        nodes[unvisitedNodes[i]].heuristicDistance
+      ) {
         currentClosest = nodes[unvisitedNodes[i]];
         index = i;
       }
@@ -38,24 +62,56 @@ function closestNode(nodes, unvisitedNodes) {
   return currentClosest;
 }
 
-function updateNeighbors(nodes, node, boardArray, target, name, start, heuristic) {
+function updateNeighbors(
+  nodes,
+  node,
+  boardArray,
+  target,
+  name,
+  start,
+  heuristic
+) {
   let neighbors = getNeighbors(node.id, nodes, boardArray);
   for (let neighbor of neighbors) {
     if (target) {
-      updateNode(node, nodes[neighbor], nodes[target], name, nodes, nodes[start], heuristic, boardArray);
+      updateNode(
+        node,
+        nodes[neighbor],
+        nodes[target],
+        name,
+        nodes,
+        nodes[start],
+        heuristic,
+        boardArray
+      );
     } else {
       updateNode(node, nodes[neighbor]);
     }
   }
 }
 
-function updateNode(currentNode, targetNode, actualTargetNode, name, nodes, actualStartNode, heuristic, boardArray) {
+function updateNode(
+  currentNode,
+  targetNode,
+  actualTargetNode = null,
+  name = null,
+  nodes = null,
+  actualStartNode = null,
+  heuristic = null,
+  boardArray = null
+) {
   let distance = getDistance(currentNode, targetNode);
-  if (!targetNode.heuristicDistance) targetNode.heuristicDistance = manhattanDistance(targetNode, actualTargetNode);
-  let distanceToCompare = currentNode.distance + targetNode.weight + distance[0];
+  if (!targetNode.heuristicDistance)
+    targetNode.heuristicDistance = manhattanDistance(
+      targetNode,
+      actualTargetNode
+    );
+  let distanceToCompare =
+    currentNode.distance + targetNode.weight + distance[0];
   if (distanceToCompare < targetNode.distance) {
     targetNode.distance = distanceToCompare;
-    targetNode.totalDistance = targetNode.distance + targetNode.heuristicDistance;
+    targetNode.totalDistance =
+      targetNode.distance + targetNode.heuristicDistance;
     targetNode.previousNode = currentNode.id;
     targetNode.path = distance[1];
     targetNode.direction = distance[2];
@@ -69,20 +125,24 @@ function getNeighbors(id, nodes, boardArray) {
   let neighbors = [];
   let potentialNeighbor;
   if (boardArray[x - 1] && boardArray[x - 1][y]) {
-    potentialNeighbor = `${(x - 1).toString()}-${y.toString()}`
-    if (nodes[potentialNeighbor].status !== "wall") neighbors.push(potentialNeighbor);
+    potentialNeighbor = `${(x - 1).toString()}-${y.toString()}`;
+    if (nodes[potentialNeighbor].status !== "wall")
+      neighbors.push(potentialNeighbor);
   }
   if (boardArray[x + 1] && boardArray[x + 1][y]) {
-    potentialNeighbor = `${(x + 1).toString()}-${y.toString()}`
-    if (nodes[potentialNeighbor].status !== "wall") neighbors.push(potentialNeighbor);
+    potentialNeighbor = `${(x + 1).toString()}-${y.toString()}`;
+    if (nodes[potentialNeighbor].status !== "wall")
+      neighbors.push(potentialNeighbor);
   }
   if (boardArray[x][y - 1]) {
-    potentialNeighbor = `${x.toString()}-${(y - 1).toString()}`
-    if (nodes[potentialNeighbor].status !== "wall") neighbors.push(potentialNeighbor);
+    potentialNeighbor = `${x.toString()}-${(y - 1).toString()}`;
+    if (nodes[potentialNeighbor].status !== "wall")
+      neighbors.push(potentialNeighbor);
   }
   if (boardArray[x][y + 1]) {
-    potentialNeighbor = `${x.toString()}-${(y + 1).toString()}`
-    if (nodes[potentialNeighbor].status !== "wall") neighbors.push(potentialNeighbor);
+    potentialNeighbor = `${x.toString()}-${(y + 1).toString()}`;
+    if (nodes[potentialNeighbor].status !== "wall")
+      neighbors.push(potentialNeighbor);
   }
   // if (boardArray[x - 1] && boardArray[x - 1][y - 1]) {
   //   potentialNeighbor = `${(x - 1).toString()}-${(y - 1).toString()}`
@@ -110,7 +170,6 @@ function getNeighbors(id, nodes, boardArray) {
   // }
   return neighbors;
 }
-
 
 function getDistance(nodeOne, nodeTwo) {
   let currentCoordinates = nodeOne.id.split("-");
@@ -278,9 +337,7 @@ function manhattanDistance(nodeOne, nodeTwo) {
   let xChange = Math.abs(xOne - xTwo);
   let yChange = Math.abs(yOne - yTwo);
 
-  return (xChange + yChange);
+  return xChange + yChange;
 }
 
-
-
-module.exports = astar;
+export { astar };
