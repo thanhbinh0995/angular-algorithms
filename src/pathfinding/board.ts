@@ -6,6 +6,7 @@ export default class Board {
   public height: number;
   public start: string = null;
   public target: string = null;
+  public middleNode: string = null;
   public object: string = null;
   public boardArray: any[];
   public nodes: object;
