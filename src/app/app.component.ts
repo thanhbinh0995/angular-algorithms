@@ -138,5 +138,6 @@ export class AppComponent implements AfterContentInit {
 
   click(tile: Tile): any {
     console.log("click", tile);
+    this.map.setTile();
   }
 }
