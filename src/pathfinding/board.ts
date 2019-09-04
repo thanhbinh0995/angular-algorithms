@@ -66,7 +66,7 @@ export default class Board {
     this.previouslySwitchedNodeWeight = 0;
     this.keyDown = false;
     this.algoDone = false;
-    this.currentAlgorithm = null;
+    this.currentAlgorithm = "dfs";
     this.currentHeuristic = null;
     this.numberOfObjects = 0;
     this.isObject = false;
@@ -568,174 +568,11 @@ export default class Board {
       let target = this.nodes[this.target];
       let object = this.numberOfObjects ? this.nodes[this.object] : null;
       start.status = "start";
-      /**
-       *
-       * TODO
-       * set start node with classname
-       *
-       */
-      // document.getElementById(start.id).className = "start";
       target.status = "target";
-
-      /**
-       *
-       * TODO
-       * set target node with classname
-       *
-       */
-      // document.getElementById(target.id).className = "target";
       if (object) {
         object.status = "object";
-
-        /**
-         *
-         * TODO
-         * set object node with classname
-         *
-         */
-        // document.getElementById(object.id).className = "object";
       }
     }
-
-    /**
-     *
-     * TODO
-     * handle startButtonStart clicked
-     *
-     */
-
-    // document.getElementById("startButtonStart").onclick = () => {
-    //   if (!this.currentAlgorithm) {
-    //     /**
-    //      *
-    //      * TODO
-    //      * Alert should be pick an algorithm
-    //      *
-    //      */
-    //     // document.getElementById("startButtonStart").innerHTML =
-    //     //   '<button class="btn btn-default navbar-btn" type="button">Pick an Algorithm!</button>';
-    //   } else {
-    //     this.clearPath("clickedButton");
-    //     this.toggleButtons();
-    //     let weightedAlgorithms = ["dijkstra", "CLA", "greedy"];
-    //     let unweightedAlgorithms = ["dfs", "bfs"];
-    //     let success;
-    //     if (this.currentAlgorithm === "bidirectional") {
-    //       if (!this.numberOfObjects) {
-    //         success = bidirectional(
-    //           this.nodes,
-    //           this.start,
-    //           this.target,
-    //           this.nodesToAnimate,
-    //           this.boardArray,
-    //           this.currentAlgorithm,
-    //           this.currentHeuristic,
-    //           this
-    //         );
-    //         launchAnimations(this, success, "weighted");
-    //       } else {
-    //         this.isObject = true;
-    //       }
-    //       this.algoDone = true;
-    //     } else if (this.currentAlgorithm === "astar") {
-    //       if (!this.numberOfObjects) {
-    //         success = weightedSearchAlgorithm(
-    //           this.nodes,
-    //           this.start,
-    //           this.target,
-    //           this.nodesToAnimate,
-    //           this.boardArray,
-    //           this.currentAlgorithm,
-    //           this.currentHeuristic
-    //         );
-    //         launchAnimations(this, success, "weighted");
-    //       } else {
-    //         this.isObject = true;
-    //         success = weightedSearchAlgorithm(
-    //           this.nodes,
-    //           this.start,
-    //           this.object,
-    //           this.objectNodesToAnimate,
-    //           this.boardArray,
-    //           this.currentAlgorithm,
-    //           this.currentHeuristic
-    //         );
-    //         launchAnimations(
-    //           this,
-    //           success,
-    //           "weighted",
-    //           "object",
-    //           this.currentAlgorithm,
-    //           this.currentHeuristic
-    //         );
-    //       }
-    //       this.algoDone = true;
-    //     } else if (weightedAlgorithms.includes(this.currentAlgorithm)) {
-    //       if (!this.numberOfObjects) {
-    //         success = weightedSearchAlgorithm(
-    //           this.nodes,
-    //           this.start,
-    //           this.target,
-    //           this.nodesToAnimate,
-    //           this.boardArray,
-    //           this.currentAlgorithm,
-    //           this.currentHeuristic
-    //         );
-    //         launchAnimations(this, success, "weighted");
-    //       } else {
-    //         this.isObject = true;
-    //         success = weightedSearchAlgorithm(
-    //           this.nodes,
-    //           this.start,
-    //           this.object,
-    //           this.objectNodesToAnimate,
-    //           this.boardArray,
-    //           this.currentAlgorithm,
-    //           this.currentHeuristic
-    //         );
-    //         launchAnimations(
-    //           this,
-    //           success,
-    //           "weighted",
-    //           "object",
-    //           this.currentAlgorithm,
-    //           this.currentHeuristic
-    //         );
-    //       }
-    //       this.algoDone = true;
-    //     } else if (unweightedAlgorithms.includes(this.currentAlgorithm)) {
-    //       if (!this.numberOfObjects) {
-    //         success = unweightedSearchAlgorithm(
-    //           this.nodes,
-    //           this.start,
-    //           this.target,
-    //           this.nodesToAnimate,
-    //           this.boardArray,
-    //           this.currentAlgorithm
-    //         );
-    //         launchAnimations(this, success, "unweighted");
-    //       } else {
-    //         this.isObject = true;
-    //         success = unweightedSearchAlgorithm(
-    //           this.nodes,
-    //           this.start,
-    //           this.object,
-    //           this.objectNodesToAnimate,
-    //           this.boardArray,
-    //           this.currentAlgorithm
-    //         );
-    //         launchAnimations(
-    //           this,
-    //           success,
-    //           "unweighted",
-    //           "object",
-    //           this.currentAlgorithm
-    //         );
-    //       }
-    //       this.algoDone = true;
-    //     }
-    //   }
-    // };
 
     this.algoDone = false;
     Object.keys(this.nodes).forEach(id => {
@@ -759,19 +596,15 @@ export default class Board {
        *
        */
 
-      let currentHTMLNode = { className: "" };
-      // let currentHTMLNode = document.getElementById(id);
       let relevantStatuses = ["wall", "start", "target", "object"];
       if (
         (!relevantStatuses.includes(currentNode.status) ||
-          currentHTMLNode.className === "visitedobject") &&
+          currentNode.status === "visitedobject") &&
         currentNode.weight !== 15
       ) {
         currentNode.status = "unvisited";
-        currentHTMLNode.className = "unvisited";
       } else if (currentNode.weight === 15) {
-        currentNode.status = "unvisited";
-        currentHTMLNode.className = "unvisited weight";
+        currentNode.status = "unvisited weight";
       }
     });
   }
@@ -786,12 +619,10 @@ export default class Board {
        * reset current node if status is wall or weigth equals 15
        *
        */
-      // let currentHTMLNode = document.getElementById(id);
-      // if (currentNode.status === "wall" || currentNode.weight === 15) {
-      //   currentNode.status = "unvisited";
-      //   currentNode.weight = 0;
-      //   currentHTMLNode.className = "unvisited";
-      // }
+      if (currentNode.status === "wall" || currentNode.weight === 15) {
+        currentNode.status = "unvisited";
+        currentNode.weight = 0;
+      }
     });
   }
 
@@ -805,12 +636,10 @@ export default class Board {
        *
        */
 
-      // let currentHTMLNode = document.getElementById(id);
-      // if (currentNode.weight === 15) {
-      //   currentNode.status = "unvisited";
-      //   currentNode.weight = 0;
-      //   currentHTMLNode.className = "unvisited";
-      // }
+      if (currentNode.weight === 15) {
+        currentNode.status = "unvisited";
+        currentNode.weight = 0;
+      }
     });
   }
 
@@ -1035,6 +864,9 @@ export default class Board {
          * alert algorithmDescriptor
          *
          */
+        alert(
+          `${name} is unweighted and does not guarantee</b></i> the shortest path!`
+        );
         // document.getElementById(
         //   "algorithmDescriptor"
         // ).innerHTML = `${name} is <i><b>unweighted</b></i> and <i><b>does not guarantee</b></i> the shortest path!`;
@@ -1045,6 +877,9 @@ export default class Board {
          * alert algorithmDescriptor
          *
          */
+        alert(
+          `${name} is unweighted and does not guarantee</b></i> the shortest path!`
+        );
         // document.getElementById(
         //   "algorithmDescriptor"
         // ).innerHTML = `${name} is <i><b>unweighted</b></i> and <i><b>guarantees</b></i> the shortest path!`;
@@ -1086,9 +921,9 @@ export default class Board {
          * alert algorithmDescriptor
          *
          */
-        // document.getElementById(
-        //   "algorithmDescriptor"
-        // ).innerHTML = `${name} is <i><b>weighted</b></i> and <i><b>does not guarantee</b></i> the shortest path!`;
+        alert(
+          `${name} is weighted and does not guarantee</b></i> the shortest path!`
+        );
       }
 
       /**
@@ -1123,9 +958,10 @@ export default class Board {
        * alert algorithmDescriptor
        *
        */
-      // document.getElementById(
-      //   "algorithmDescriptor"
-      // ).innerHTML = `${name} is <i><b>weighted</b></i> and <i><b>does not guarantee</b></i> the shortest path!`;
+      alert(
+        `${name} is weighted and does not guarantee</b></i> the shortest path!`
+      );
+
       /**
        *
        * TODO
@@ -1195,7 +1031,6 @@ export default class Board {
     //   this.toggleTutorialButtons();
     // };
 
-    let board = this;
     function nextPreviousClick() {
       if (this.counter === 1) {
         /**
@@ -1266,149 +1101,6 @@ export default class Board {
 
     if (!this.buttonsOn) {
       this.buttonsOn = true;
-
-      /**
-       *
-       * TODO
-       * handle startButtonStart clicked
-       *
-       */
-      // document.getElementById("startButtonStart").onclick = () => {
-      //   if (!this.currentAlgorithm) {
-      //     document.getElementById("startButtonStart").innerHTML =
-      //       '<button class="btn btn-default navbar-btn" type="button">Pick an Algorithm!</button>';
-      //   } else {
-      //     this.clearPath("clickedButton");
-      //     this.toggleButtons();
-      //     let weightedAlgorithms = ["dijkstra", "CLA", "CLA", "greedy"];
-      //     let unweightedAlgorithms = ["dfs", "bfs"];
-      //     let success;
-      //     if (this.currentAlgorithm === "bidirectional") {
-      //       if (!this.numberOfObjects) {
-      //         success = bidirectional(
-      //           this.nodes,
-      //           this.start,
-      //           this.target,
-      //           this.nodesToAnimate,
-      //           this.boardArray,
-      //           this.currentAlgorithm,
-      //           this.currentHeuristic,
-      //           this
-      //         );
-      //         launchAnimations(this, success, "weighted");
-      //       } else {
-      //         this.isObject = true;
-      //         success = bidirectional(
-      //           this.nodes,
-      //           this.start,
-      //           this.object,
-      //           this.nodesToAnimate,
-      //           this.boardArray,
-      //           this.currentAlgorithm,
-      //           this.currentHeuristic,
-      //           this
-      //         );
-      //         launchAnimations(this, success, "weighted");
-      //       }
-      //       this.algoDone = true;
-      //     } else if (this.currentAlgorithm === "astar") {
-      //       if (!this.numberOfObjects) {
-      //         success = weightedSearchAlgorithm(
-      //           this.nodes,
-      //           this.start,
-      //           this.target,
-      //           this.nodesToAnimate,
-      //           this.boardArray,
-      //           this.currentAlgorithm,
-      //           this.currentHeuristic
-      //         );
-      //         launchAnimations(this, success, "weighted");
-      //       } else {
-      //         this.isObject = true;
-      //         success = weightedSearchAlgorithm(
-      //           this.nodes,
-      //           this.start,
-      //           this.object,
-      //           this.objectNodesToAnimate,
-      //           this.boardArray,
-      //           this.currentAlgorithm,
-      //           this.currentHeuristic
-      //         );
-      //         launchAnimations(
-      //           this,
-      //           success,
-      //           "weighted",
-      //           "object",
-      //           this.currentAlgorithm
-      //         );
-      //       }
-      //       this.algoDone = true;
-      //     } else if (weightedAlgorithms.includes(this.currentAlgorithm)) {
-      //       if (!this.numberOfObjects) {
-      //         success = weightedSearchAlgorithm(
-      //           this.nodes,
-      //           this.start,
-      //           this.target,
-      //           this.nodesToAnimate,
-      //           this.boardArray,
-      //           this.currentAlgorithm,
-      //           this.currentHeuristic
-      //         );
-      //         launchAnimations(this, success, "weighted");
-      //       } else {
-      //         this.isObject = true;
-      //         success = weightedSearchAlgorithm(
-      //           this.nodes,
-      //           this.start,
-      //           this.object,
-      //           this.objectNodesToAnimate,
-      //           this.boardArray,
-      //           this.currentAlgorithm,
-      //           this.currentHeuristic
-      //         );
-      //         launchAnimations(
-      //           this,
-      //           success,
-      //           "weighted",
-      //           "object",
-      //           this.currentAlgorithm,
-      //           this.currentHeuristic
-      //         );
-      //       }
-      //       this.algoDone = true;
-      //     } else if (unweightedAlgorithms.includes(this.currentAlgorithm)) {
-      //       if (!this.numberOfObjects) {
-      //         success = unweightedSearchAlgorithm(
-      //           this.nodes,
-      //           this.start,
-      //           this.target,
-      //           this.nodesToAnimate,
-      //           this.boardArray,
-      //           this.currentAlgorithm
-      //         );
-      //         launchAnimations(this, success, "unweighted");
-      //       } else {
-      //         this.isObject = true;
-      //         success = unweightedSearchAlgorithm(
-      //           this.nodes,
-      //           this.start,
-      //           this.object,
-      //           this.objectNodesToAnimate,
-      //           this.boardArray,
-      //           this.currentAlgorithm
-      //         );
-      //         launchAnimations(
-      //           this,
-      //           success,
-      //           "unweighted",
-      //           "object",
-      //           this.currentAlgorithm
-      //         );
-      //       }
-      //       this.algoDone = true;
-      //     }
-      //   }
-      // };
 
       /**
        *
@@ -1818,6 +1510,151 @@ export default class Board {
       //   "navbar-inverse navbar-nav disabledA";
       // document.getElementById("actualStartButton").style.backgroundColor =
       //   "rgb(185, 15, 15)";
+    }
+  }
+
+  /**
+   *
+   * TODO
+   * handle startButtonStart clicked
+   *
+   */
+
+  public startButtonStartClicked() {
+    if (!this.currentAlgorithm) {
+      alert("Pick an Algorithm");
+      // document.getElementById("startButtonStart").innerHTML =
+      //   '<button class="btn btn-default navbar-btn" type="button">Pick an Algorithm!</button>';
+    } else {
+      this.clearPath("clickedButton");
+      this.toggleButtons();
+      let weightedAlgorithms = ["dijkstra", "CLA", "CLA", "greedy"];
+      let unweightedAlgorithms = ["dfs", "bfs"];
+      let success;
+      if (this.currentAlgorithm === "bidirectional") {
+        if (!this.numberOfObjects) {
+          success = bidirectional(
+            this.nodes,
+            this.start,
+            this.target,
+            this.nodesToAnimate,
+            this.boardArray,
+            this.currentAlgorithm,
+            this.currentHeuristic,
+            this
+          );
+          launchAnimations(this, success, "weighted");
+        } else {
+          this.isObject = true;
+          success = bidirectional(
+            this.nodes,
+            this.start,
+            this.object,
+            this.nodesToAnimate,
+            this.boardArray,
+            this.currentAlgorithm,
+            this.currentHeuristic,
+            this
+          );
+          launchAnimations(this, success, "weighted");
+        }
+        this.algoDone = true;
+      } else if (this.currentAlgorithm === "astar") {
+        if (!this.numberOfObjects) {
+          success = weightedSearchAlgorithm(
+            this.nodes,
+            this.start,
+            this.target,
+            this.nodesToAnimate,
+            this.boardArray,
+            this.currentAlgorithm,
+            this.currentHeuristic
+          );
+          launchAnimations(this, success, "weighted");
+        } else {
+          this.isObject = true;
+          success = weightedSearchAlgorithm(
+            this.nodes,
+            this.start,
+            this.object,
+            this.objectNodesToAnimate,
+            this.boardArray,
+            this.currentAlgorithm,
+            this.currentHeuristic
+          );
+          launchAnimations(
+            this,
+            success,
+            "weighted",
+            "object",
+            this.currentAlgorithm
+          );
+        }
+        this.algoDone = true;
+      } else if (weightedAlgorithms.includes(this.currentAlgorithm)) {
+        if (!this.numberOfObjects) {
+          success = weightedSearchAlgorithm(
+            this.nodes,
+            this.start,
+            this.target,
+            this.nodesToAnimate,
+            this.boardArray,
+            this.currentAlgorithm,
+            this.currentHeuristic
+          );
+          launchAnimations(this, success, "weighted");
+        } else {
+          this.isObject = true;
+          success = weightedSearchAlgorithm(
+            this.nodes,
+            this.start,
+            this.object,
+            this.objectNodesToAnimate,
+            this.boardArray,
+            this.currentAlgorithm,
+            this.currentHeuristic
+          );
+          launchAnimations(
+            this,
+            success,
+            "weighted",
+            "object",
+            this.currentAlgorithm,
+            this.currentHeuristic
+          );
+        }
+        this.algoDone = true;
+      } else if (unweightedAlgorithms.includes(this.currentAlgorithm)) {
+        if (!this.numberOfObjects) {
+          success = unweightedSearchAlgorithm(
+            this.nodes,
+            this.start,
+            this.target,
+            this.nodesToAnimate,
+            this.boardArray,
+            this.currentAlgorithm
+          );
+          launchAnimations(this, success, "unweighted");
+        } else {
+          this.isObject = true;
+          success = unweightedSearchAlgorithm(
+            this.nodes,
+            this.start,
+            this.object,
+            this.objectNodesToAnimate,
+            this.boardArray,
+            this.currentAlgorithm
+          );
+          launchAnimations(
+            this,
+            success,
+            "unweighted",
+            "object",
+            this.currentAlgorithm
+          );
+        }
+        this.algoDone = true;
+      }
     }
   }
 }

@@ -119,6 +119,14 @@ export class AppComponent implements AfterContentInit {
     }
   }
 
+  runBoard() {
+    this.board.startButtonStartClicked();
+  }
+
+  clearBoard() {
+    this.board.clearPath("clickedButton");
+  }
+
   private clear() {
     this.animationTimeouts.forEach(at => clearTimeout(at));
     this.map.tiles.forEach(tile => (tile.type = TileTypes.None));
