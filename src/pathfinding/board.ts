@@ -204,6 +204,8 @@ export default class Board {
            *
            * assign currentNode.id classname equal shortest-path
            */
+          this.nodes[currentNode.id].status = "shortest-path";
+
           //   document.getElementById(currentNode.id).className = `shortest-path`;
           currentNode.status = "shortest-path";
           currentNode = this.nodes[currentNode.previousNode];
@@ -228,6 +230,7 @@ export default class Board {
            * set middleNode className
            *
            */
+          this.nodes[this.middleNode].status = "shortest-path";
           // document.getElementById(this.middleNode).className = `shortest-path`;
         } else {
           /**
@@ -236,6 +239,8 @@ export default class Board {
            * set middleNode className
            *
            */
+          this.nodes[this.middleNode].status = "shortest-path weight";
+
           // document.getElementById(
           //   this.middleNode
           // ).className = `shortest-path weight`;
@@ -248,6 +253,8 @@ export default class Board {
            * set currentNode className
            *
            */
+          this.nodes[currentNode.id].status = "shortest-path";
+
           // document.getElementById(currentNode.id).className = `shortest-path`;
           currentNode = this.nodes[currentNode.previousNode];
         }
@@ -259,6 +266,8 @@ export default class Board {
            * set secondCurrentNode className
            *
            */
+          this.nodes[secondCurrentNode.id].status = "shortest-path";
+
           // document.getElementById(
           //   secondCurrentNode.id
           // ).className = `shortest-path`;
@@ -286,6 +295,8 @@ export default class Board {
          * set target className
          *
          */
+        this.nodes[this.target].status = "shortest-path";
+
         // document.getElementById(
         //   this.nodes[this.target].previousNode
         // ).className = `shortest-path`;
