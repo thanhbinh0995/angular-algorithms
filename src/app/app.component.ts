@@ -30,13 +30,15 @@ export class AppComponent implements AfterContentInit {
   private algorithm: Algorithm;
   private animationTimeouts: any[];
   public board: Board;
+  public buttonsOn: boolean;
 
   constructor() {
     this.map = new Map();
     this.algorithm = new AStarAlgorithm();
     this.animationTimeouts = [];
 
-    this.board = new Board(10, 6);
+    this.board = new Board(10, 7);
+    this.buttonsOn = false;
   }
 
   ngAfterContentInit() {
@@ -65,7 +67,6 @@ export class AppComponent implements AfterContentInit {
     // );
     // let width = Math.floor($(document).width() / 25);
     this.board.initialise();
-    console.log(this.board);
   }
 
   private getTileClasses(tile: Tile): string {
@@ -136,29 +137,67 @@ export class AppComponent implements AfterContentInit {
     }
   }
 
-  private mouseover(tile: Tile): any {
-    console.log("mouse over", tile);
+  mousedown(currentNode: Node): any {
+    if (this.buttonsOn) {
+      this.board.mouseDown = true;
+      if (
+        currentNode.status === "start" ||
+        currentNode.status === "target" ||
+        currentNode.status === "object"
+      ) {
+        this.board.pressedNodeStatus = currentNode.status;
+      } else {
+        this.board.pressedNodeStatus = "normal";
+        this.board.changeNormalNode(currentNode);
+      }
+    }
   }
 
-  private mouseout(tile: Tile): any {
-    console.log("mouse out", tile);
+  mouseup(currentNode: Node): any {
+    if (this.buttonsOn) {
+      this.board.mouseDown = false;
+      if (this.board.pressedNodeStatus === "target") {
+        this.board.target = currentNode.id;
+      } else if (this.board.pressedNodeStatus === "start") {
+        this.board.start = currentNode.id;
+      } else if (this.board.pressedNodeStatus === "object") {
+        this.board.object = currentNode.id;
+      }
+      this.board.pressedNodeStatus = "normal";
+    }
   }
 
-  mouseenter(e, tile: Tile): any {
-    e && e.stopPropagation && e.stopPropagation();
-    console.log("mouse enter", tile);
+  mouseenter(currentNode: Node): any {
+    if (this.buttonsOn) {
+      if (this.board.mouseDown && this.board.pressedNodeStatus !== "normal") {
+        this.board.changeSpecialNode(currentNode);
+        if (this.board.pressedNodeStatus === "target") {
+          this.board.target = currentNode.id;
+          if (this.board.algoDone) {
+            this.board.redoAlgorithm();
+          }
+        } else if (this.board.pressedNodeStatus === "start") {
+          this.board.start = currentNode.id;
+          if (this.board.algoDone) {
+            this.board.redoAlgorithm();
+          }
+        } else if (this.board.pressedNodeStatus === "object") {
+          this.board.object = currentNode.id;
+          if (this.board.algoDone) {
+            this.board.redoAlgorithm();
+          }
+        }
+      } else if (this.board.mouseDown) {
+        this.board.changeNormalNode(currentNode.id);
+      }
+    }
   }
 
-  mousedown(tile: Tile): any {
-    console.log("mouse down", tile);
-  }
-
-  mouseup(tile: Tile): any {
-    console.log("mouse up", tile);
-  }
-
-  click(tile: Tile): any {
-    console.log("click", tile);
-    this.map.setTile();
+  mouseleave(node: Node): any {
+    if (this.buttonsOn) {
+      if (this.board.mouseDown && this.board.pressedNodeStatus !== "normal") {
+        this.board.changeSpecialNode(node);
+      }
+    }
   }
 }

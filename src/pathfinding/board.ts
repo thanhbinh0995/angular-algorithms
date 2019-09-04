@@ -36,7 +36,7 @@ export default class Board {
   public previouslyPressedNodeStatus: any;
   public previouslySwitchedNode: any;
   public previouslySwitchedNodeWeight: number;
-  public keyDown: boolean;
+  public keyDown: any;
   public algoDone: boolean;
   public currentAlgorithm: any;
   public currentHeuristic: any;
@@ -76,7 +76,12 @@ export default class Board {
 
   public initialise() {
     this.createGrid();
-    // event listener will handle with onClick and mouse event
+    /**
+     *
+     * TODO -> DONE
+     * handle mouse event
+     *
+     */
     // this.addEventListeners();
     this.toggleTutorialButtons();
   }
@@ -120,10 +125,65 @@ export default class Board {
 
   public changeSpecialNode(currentNode: any) {
     // will be handle by event like as addEventListeners
+    let previousElement;
+    if (this.previouslySwitchedNode)
+      previousElement = this.previouslySwitchedNode.id;
+    if (
+      currentNode.status !== "target" &&
+      currentNode.status !== "start" &&
+      currentNode.status !== "object"
+    ) {
+      if (this.previouslySwitchedNode) {
+        this.previouslySwitchedNode.status = this.previouslyPressedNodeStatus;
+        previousElement.status =
+          this.previouslySwitchedNodeWeight === 15
+            ? "unvisited weight"
+            : this.previouslyPressedNodeStatus;
+        this.previouslySwitchedNode.weight =
+          this.previouslySwitchedNodeWeight === 15 ? 15 : 0;
+        this.previouslySwitchedNode = null;
+        this.previouslySwitchedNodeWeight = currentNode.weight;
+
+        this.previouslyPressedNodeStatus = currentNode.status;
+        currentNode.status = this.pressedNodeStatus;
+
+        currentNode.weight = 0;
+      }
+    } else if (
+      currentNode.status !== this.pressedNodeStatus &&
+      !this.algoDone
+    ) {
+      this.previouslySwitchedNode.status = this.pressedNodeStatus;
+      previousElement.status = this.pressedNodeStatus;
+    } else if (currentNode.status === this.pressedNodeStatus) {
+      this.previouslySwitchedNode = currentNode;
+      currentNode.status = this.previouslyPressedNodeStatus;
+    }
   }
 
   public changeNormalNode(currentNode: any) {
     // will be handle by event like as addEventListeners
+    let relevantStatuses = ["start", "target", "object"];
+    let unweightedAlgorithms = ["dfs", "bfs"];
+    if (!this.keyDown) {
+      if (!relevantStatuses.includes(currentNode.status)) {
+        currentNode.status =
+          currentNode.status !== "wall" ? "wall" : "unvisited";
+        currentNode.status =
+          currentNode.status !== "wall" ? "unvisited" : "wall";
+        currentNode.weight = 0;
+      }
+    } else if (
+      this.keyDown === 87 &&
+      !unweightedAlgorithms.includes(this.currentAlgorithm)
+    ) {
+      if (!relevantStatuses.includes(currentNode.status)) {
+        currentNode.status =
+          currentNode.weight !== 15 ? "unvisited weight" : "unvisited";
+        currentNode.weight = currentNode.status !== "unvisited weight" ? 0 : 15;
+        currentNode.status = "unvisited";
+      }
+    }
   }
 
   public drawShortestPath(targetNodeId, startNodeId, object) {
@@ -145,6 +205,7 @@ export default class Board {
            * assign currentNode.id classname equal shortest-path
            */
           //   document.getElementById(currentNode.id).className = `shortest-path`;
+          currentNode.status = "shortest-path";
           currentNode = this.nodes[currentNode.previousNode];
         }
       }

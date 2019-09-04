@@ -100,8 +100,6 @@
         class="tile"
         [style.left.px]="tile.col * 32 + 10"
         [style.top.px]="tile.row * 32 + 10"
-        ng-mouseenter="mouseenter($event, tile)"
-        (click)="click(tile)"
       ></div>
     </div>
 
@@ -111,13 +109,14 @@
           <td
             *ngFor="let item of rows"
             id="{{ item.id }}"
-            class="unvisited"
+            class="{{ item.status }}"
+            (mousedown)="mousedown(item)"
+            (mouseup)="mouseup(item)"
+            (mouseenter)="mouseenter(item)"
+            (mouseleave)="mouseleave(item)"
           ></td>
         </tr>
       </table>
     </div>
   </div>
 </div>
-<!-- (mouseover)="mouseover(tile)" -->
-<!-- (mouseout)="mouseover(tile)" -->
-<!-- (click)="click(tile)" -->
