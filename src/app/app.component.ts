@@ -37,8 +37,8 @@ export class AppComponent implements AfterContentInit {
     this.algorithm = new AStarAlgorithm();
     this.animationTimeouts = [];
 
-    this.board = new Board(10, 7);
-    this.buttonsOn = false;
+    this.board = new Board(20, 14);
+    this.buttonsOn = true;
   }
 
   ngAfterContentInit() {
@@ -188,15 +188,15 @@ export class AppComponent implements AfterContentInit {
           }
         }
       } else if (this.board.mouseDown) {
-        this.board.changeNormalNode(currentNode.id);
+        this.board.changeNormalNode(currentNode);
       }
     }
   }
 
-  mouseleave(node: Node): any {
+  mouseleave(currentNode: Node): any {
     if (this.buttonsOn) {
       if (this.board.mouseDown && this.board.pressedNodeStatus !== "normal") {
-        this.board.changeSpecialNode(node);
+        this.board.changeSpecialNode(currentNode);
       }
     }
   }

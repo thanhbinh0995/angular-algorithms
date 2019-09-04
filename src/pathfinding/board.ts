@@ -127,7 +127,7 @@ export default class Board {
     // will be handle by event like as addEventListeners
     let previousElement;
     if (this.previouslySwitchedNode)
-      previousElement = this.previouslySwitchedNode.id;
+      previousElement = this.previouslySwitchedNode;
     if (
       currentNode.status !== "target" &&
       currentNode.status !== "start" &&
@@ -139,6 +139,7 @@ export default class Board {
           this.previouslySwitchedNodeWeight === 15
             ? "unvisited weight"
             : this.previouslyPressedNodeStatus;
+
         this.previouslySwitchedNode.weight =
           this.previouslySwitchedNodeWeight === 15 ? 15 : 0;
         this.previouslySwitchedNode = null;
