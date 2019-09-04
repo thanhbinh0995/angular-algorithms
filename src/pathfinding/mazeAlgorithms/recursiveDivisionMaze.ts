@@ -24,15 +24,21 @@ function recursiveDivisionMaze(
           r === board.height - 1 ||
           c === board.width - 1
         ) {
-          let currentHTMLNode = document.getElementById(node);
-          board.wallsToAnimate.push(currentHTMLNode);
-          if (type === "wall") {
-            board.nodes[node].status = "wall";
-            board.nodes[node].weight = 0;
-          } else if (type === "weight") {
-            board.nodes[node].status = "unvisited";
-            board.nodes[node].weight = 15;
-          }
+          /**
+           *
+           * TODO
+           * set status and weight current node and add to wallsToAnimate
+           *
+           */
+          // let currentHTMLNode = document.getElementById(node);
+          // board.wallsToAnimate.push(currentHTMLNode);
+          // if (type === "wall") {
+          //   board.nodes[node].status = "wall";
+          //   board.nodes[node].weight = 0;
+          // } else if (type === "weight") {
+          //   board.nodes[node].status = "unvisited";
+          //   board.nodes[node].weight = 15;
+          // }
         }
       }
     });
@@ -60,21 +66,26 @@ function recursiveDivisionMaze(
         c >= colStart - 1 &&
         c <= colEnd + 1
       ) {
-        let currentHTMLNode = document.getElementById(node);
-        if (
-          currentHTMLNode.className !== "start" &&
-          currentHTMLNode.className !== "target" &&
-          currentHTMLNode.className !== "object"
-        ) {
-          board.wallsToAnimate.push(currentHTMLNode);
-          if (type === "wall") {
-            board.nodes[node].status = "wall";
-            board.nodes[node].weight = 0;
-          } else if (type === "weight") {
-            board.nodes[node].status = "unvisited";
-            board.nodes[node].weight = 15;
-          }
-        }
+        /**
+         *
+         * TODO check classname of current node
+         *
+         */
+        // let currentHTMLNode = document.getElementById(node);
+        // if (
+        //   currentHTMLNode.className !== "start" &&
+        //   currentHTMLNode.className !== "target" &&
+        //   currentHTMLNode.className !== "object"
+        // ) {
+        //   board.wallsToAnimate.push(currentHTMLNode);
+        //   if (type === "wall") {
+        //     board.nodes[node].status = "wall";
+        //     board.nodes[node].weight = 0;
+        //   } else if (type === "weight") {
+        //     board.nodes[node].status = "unvisited";
+        //     board.nodes[node].weight = 15;
+        //   }
+        // }
       }
     });
     if (currentRow - 2 - rowStart > colEnd - colStart) {
@@ -145,21 +156,26 @@ function recursiveDivisionMaze(
         r >= rowStart - 1 &&
         r <= rowEnd + 1
       ) {
-        let currentHTMLNode = document.getElementById(node);
-        if (
-          currentHTMLNode.className !== "start" &&
-          currentHTMLNode.className !== "target" &&
-          currentHTMLNode.className !== "object"
-        ) {
-          board.wallsToAnimate.push(currentHTMLNode);
-          if (type === "wall") {
-            board.nodes[node].status = "wall";
-            board.nodes[node].weight = 0;
-          } else if (type === "weight") {
-            board.nodes[node].status = "unvisited";
-            board.nodes[node].weight = 15;
-          }
-        }
+        /**
+         *
+         * TODO check classname of current node
+         *
+         */
+        // let currentHTMLNode = document.getElementById(node);
+        // if (
+        //   currentHTMLNode.className !== "start" &&
+        //   currentHTMLNode.className !== "target" &&
+        //   currentHTMLNode.className !== "object"
+        // ) {
+        //   board.wallsToAnimate.push(currentHTMLNode);
+        //   if (type === "wall") {
+        //     board.nodes[node].status = "wall";
+        //     board.nodes[node].weight = 0;
+        //   } else if (type === "weight") {
+        //     board.nodes[node].status = "unvisited";
+        //     board.nodes[node].weight = 15;
+        //   }
+        // }
       }
     });
     if (rowEnd - rowStart > currentCol - 2 - colStart) {

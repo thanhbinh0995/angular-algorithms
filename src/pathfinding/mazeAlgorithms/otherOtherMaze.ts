@@ -23,9 +23,15 @@ function otherOtherMaze(
           r === board.height - 1 ||
           c === board.width - 1
         ) {
-          let currentHTMLNode = document.getElementById(node);
-          board.wallsToAnimate.push(currentHTMLNode);
-          board.nodes[node].status = "wall";
+          /**
+           *
+           * TODO
+           * set status current node and add to wallsToAnimate
+           *
+           */
+          // let currentHTMLNode = document.getElementById(node);
+          // board.wallsToAnimate.push(currentHTMLNode);
+          // board.nodes[node].status = "wall";
         }
       }
     });
@@ -53,15 +59,20 @@ function otherOtherMaze(
         c >= colStart - 1 &&
         c <= colEnd + 1
       ) {
-        let currentHTMLNode = document.getElementById(node);
-        if (
-          currentHTMLNode.className !== "start" &&
-          currentHTMLNode.className !== "target" &&
-          currentHTMLNode.className !== "object"
-        ) {
-          board.wallsToAnimate.push(currentHTMLNode);
-          board.nodes[node].status = "wall";
-        }
+        /**
+         *
+         * TODO check classname of current node
+         *
+         */
+        // let currentHTMLNode = document.getElementById(node);
+        // if (
+        //   currentHTMLNode.className !== "start" &&
+        //   currentHTMLNode.className !== "target" &&
+        //   currentHTMLNode.className !== "object"
+        // ) {
+        //   board.wallsToAnimate.push(currentHTMLNode);
+        //   board.nodes[node].status = "wall";
+        // }
       }
     });
     if (currentRow - 2 - rowStart > colEnd - colStart) {
@@ -128,15 +139,20 @@ function otherOtherMaze(
         r >= rowStart - 1 &&
         r <= rowEnd + 1
       ) {
-        let currentHTMLNode = document.getElementById(node);
-        if (
-          currentHTMLNode.className !== "start" &&
-          currentHTMLNode.className !== "target" &&
-          currentHTMLNode.className !== "object"
-        ) {
-          board.wallsToAnimate.push(currentHTMLNode);
-          board.nodes[node].status = "wall";
-        }
+        /**
+         *
+         * TODO check classname of current node
+         *
+         */
+        // let currentHTMLNode = document.getElementById(node);
+        // if (
+        //   currentHTMLNode.className !== "start" &&
+        //   currentHTMLNode.className !== "target" &&
+        //   currentHTMLNode.className !== "object"
+        // ) {
+        //   board.wallsToAnimate.push(currentHTMLNode);
+        //   board.nodes[node].status = "wall";
+        // }
       }
     });
     if (rowEnd - rowStart > currentCol - 2 - colStart) {
