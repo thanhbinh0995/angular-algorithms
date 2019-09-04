@@ -9,8 +9,8 @@ export default class Map {
   public end: Tile;
 
   constructor(
-    width: number = 24,
-    height: number = 24,
+    width: number = 10,
+    height: number = 6,
     obstacleProb: number = 0.2
   ) {
     this.width = width;

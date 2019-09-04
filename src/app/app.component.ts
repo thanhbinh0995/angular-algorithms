@@ -12,10 +12,13 @@ import PathResult from "../pathfinding/algorithms/pathResult";
 import Map from "../pathfinding/map";
 import Tile, { TileTypes } from "../pathfinding/tile";
 
+import Board from "../pathfinding/board";
+import Node from "../pathfinding/node";
+
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.css"]
+  styleUrls: ["./app.component.css", "./board.component.css"]
 })
 export class AppComponent implements AfterContentInit {
   @ViewChild("mapDiv") mapEl: ElementRef;
@@ -26,11 +29,14 @@ export class AppComponent implements AfterContentInit {
   public map: Map;
   private algorithm: Algorithm;
   private animationTimeouts: any[];
+  public board: Board;
 
   constructor() {
     this.map = new Map();
     this.algorithm = new AStarAlgorithm();
     this.animationTimeouts = [];
+
+    this.board = new Board(10, 6);
   }
 
   ngAfterContentInit() {
@@ -40,11 +46,26 @@ export class AppComponent implements AfterContentInit {
   private initializeMap() {
     const divWidth = this.mapEl.nativeElement.clientWidth;
     const divHeight = this.mapEl.nativeElement.clientHeight;
-    this.map.width = Math.floor((divWidth - 20) / 32);
-    this.map.height = Math.floor((divHeight - 20) / 32);
+    // this.map.width = Math.floor((divWidth - 20) / 32);
+    // this.map.height = Math.floor((divHeight - 20) / 32);
+
+    const widthTest = 10;
+    const heightTest = 6;
+    this.map.width = widthTest;
+    this.map.height = heightTest;
     this.inputMapWidth.nativeElement.value = this.map.width;
     this.inputMapHeight.nativeElement.value = this.map.height;
     this.map.generate();
+
+    // let navbarHeight = $("#navbarDiv").height();
+    // let textHeight =
+    //   $("#mainText").height() + $("#algorithmDescriptor").height();
+    // let height = Math.floor(
+    //   ($(document).height() - navbarHeight - textHeight) / 28
+    // );
+    // let width = Math.floor($(document).width() / 25);
+    this.board.initialise();
+    console.log(this.board);
   }
 
   private getTileClasses(tile: Tile): string {
@@ -108,7 +129,7 @@ export class AppComponent implements AfterContentInit {
     } else {
       const changement: [Tile, TileTypes] = result.changements.shift();
       changement[0].type = changement[1];
-      console.log(this.inputSpeed);
+      // console.log(this.inputSpeed);
       this.animationTimeouts.push(
         setTimeout(() => this.animate(result), this.inputSpeed)
       );

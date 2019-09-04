@@ -398,11 +398,9 @@
 
 #board{
   border-collapse:collapse;
-  /*position: center*/
 }
 
 #mainText div {
-  /*border: 1px solid rgb(12, 53, 71);*/
   width: 25px;
   height: 25px;
   display: inline-block;
@@ -416,16 +414,8 @@
   margin-right: 5px;
 }
 
-/*#tutorial {
-  position: absolute;
-  color: red;
-  height: 50px;
-  width: 200px;
-  z-index: 2;
-}*/
 
 #board td{
-  /*border: 1px solid rgb(175, 216, 248);*/
   width: 25px;
   height: 25px;
 }

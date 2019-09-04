@@ -49,8 +49,29 @@ export default class Board {
   constructor(width: number = 24, height: number = 24) {
     this.width = width;
     this.height = height;
+    this.start = null;
+    this.target = null;
+    this.object = null;
+    this.boardArray = [];
+    this.nodes = {};
+    this.nodesToAnimate = [];
+    this.objectNodesToAnimate = [];
+    this.shortestPathNodesToAnimate = [];
+    this.objectShortestPathNodesToAnimate = [];
+    this.wallsToAnimate = [];
+    this.mouseDown = false;
     this.pressedNodeStatus = "normal";
-    this.speed = "fase";
+    this.previouslyPressedNodeStatus = null;
+    this.previouslySwitchedNode = null;
+    this.previouslySwitchedNodeWeight = 0;
+    this.keyDown = false;
+    this.algoDone = false;
+    this.currentAlgorithm = null;
+    this.currentHeuristic = null;
+    this.numberOfObjects = 0;
+    this.isObject = false;
+    this.buttonsOn = false;
+    this.speed = "fast";
   }
 
   public initialise() {

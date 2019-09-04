@@ -12,7 +12,7 @@
           aria-describedby="mapWidthAddon"
           id="inputMapWidth"
           #inputMapWidth
-          value="24"
+          value="10"
           min="6"
           max="64"
         />
@@ -26,7 +26,7 @@
           class="form-control"
           id="inputMapHeight"
           #inputMapHeight
-          value="24"
+          value="6"
           min="6"
           max="64"
         />
@@ -93,15 +93,29 @@
     <button class="btn btn-success float-right" (click)="run()">Run</button>
   </div>
   <div id="map" class="fh" #mapDiv>
-    <div
-      *ngFor="let tile of map.tiles"
-      [ngClass]="getTileClasses(tile)"
-      class="tile"
-      [style.left.px]="tile.col * 32 + 10"
-      [style.top.px]="tile.row * 32 + 10"
-      ng-mouseenter="mouseenter($event, tile)"
-      (click)="click(tile)"
-    ></div>
+    <div>
+      <div
+        *ngFor="let tile of map.tiles"
+        [ngClass]="getTileClasses(tile)"
+        class="tile"
+        [style.left.px]="tile.col * 32 + 10"
+        [style.top.px]="tile.row * 32 + 10"
+        ng-mouseenter="mouseenter($event, tile)"
+        (click)="click(tile)"
+      ></div>
+    </div>
+
+    <div class="board-container" style="padding-top: 250px">
+      <table id="board">
+        <tr *ngFor="let rows of board.boardArray">
+          <td
+            *ngFor="let item of rows"
+            id="{{ item.id }}"
+            class="unvisited"
+          ></td>
+        </tr>
+      </table>
+    </div>
   </div>
 </div>
 <!-- (mouseover)="mouseover(tile)" -->
