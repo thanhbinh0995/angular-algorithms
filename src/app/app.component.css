@@ -1,31 +1,802 @@
-#sidebar {
-  float: left;
-  width: 300px;
-  padding: 15px;
+.start {
+  /*border: 1px solid rgb(175, 216, 248);*/
+  background-image: url(styling/triangletwo-right.svg);
+  /*background-color: rgb(255, 254, 106);*/
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  animation-name: specialNodes;
+  animation-duration: 2s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
 }
 
-#map {
-  margin-left: 300px;
-  position: relative;
-}
-
-.tile {
-  width: 32px;
-  height: 32px;
-  border: 1px solid black;
-  position: absolute;
-}
-
-hr {
-  border-color: white;
-}
-
-.end-tile {
-  background-image: url("data:image/png;base64,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");
+.instantshortest-path-up {
+  /*border: 1px solid rgb(175, 216, 248);*/
+  background: url(styling/triangletwo-up.svg);
+  background-color: rgb(255, 254, 106);
+  background-position: center;
+  background-repeat: no-repeat;
   background-size: contain;
 }
 
-.start-tile {
-  background-image: url("data:image/png;base64,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");
+.shortest-path-up {
+  /*border: 1px solid rgb(175, 216, 248);*/
+  background: url(styling/triangletwo-up.svg);
+  background-color: rgb(255, 254, 106);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  animation-name: triangletwo;
+  animation-duration: 1.5s;
+  animation-timing-function: linear;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
+.instantshortest-path-down {
+  /*border: 1px solid rgb(175, 216, 248);*/
+  background: url(styling/triangletwo-down.svg);
+  background-color: rgb(255, 254, 106);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.shortest-path-down {
+  /*border: 1px solid rgb(175, 216, 248);*/
+  background: url(styling/triangletwo-down.svg);
+  background-color: rgb(255, 254, 106);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  animation-name: triangletwo;
+  animation-duration: 1.5s;
+  animation-timing-function: linear;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
+.instantshortest-path-right {
+  /*border: 1px solid rgb(175, 216, 248);*/
+  background: url(styling/triangletwo-right.svg);
+  background-color: rgb(255, 254, 106);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.shortest-path-right {
+  /*border: 1px solid rgb(175, 216, 248);*/
+  background: url(styling/triangletwo-right.svg);
+  background-color: rgb(255, 254, 106);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  animation-name: triangletwo;
+  animation-duration: 1.5s;
+  animation-timing-function: linear;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
+.instantshortest-path-left {
+  /*border: 1px solid rgb(175, 216, 248);*/
+  background: url(styling/triangletwo-left.svg);
+  background-color: rgb(255, 254, 106);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.shortest-path-left {
+  /*border: 1px solid rgb(175, 216, 248);*/
+  background: url(styling/triangletwo-left.svg);
+  background-color: rgb(255, 254, 106);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  animation-name: triangletwo;
+  animation-duration: 1.5s;
+  animation-timing-function: linear;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
+.instantStartTransparent {
+  /*border: 1px solid rgb(175, 216, 248);*/
+  opacity: 0.5;
+  background-image: url(styling/triangletwo-right.svg);
+  background-color: rgb(255, 254, 106);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.startTransparent {
+  /*border: 1px solid rgb(175, 216, 248);*/
+  opacity: 0.5;
+  background-image: url(styling/triangletwo-right.svg);
+  background-color: rgb(255, 254, 106);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  animation-name: specialNodes;
+  animation-duration: 2s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
+.visitedStartNodeBlue {
+  /*border: 1px solid rgb(175, 216, 248);*/
+  background-image: url(styling/triangletwo-right.svg);
+  /*background-color: rgb(255, 254, 106);*/
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  animation-name: visitedStartNodeBlueAnimation;
+  animation-duration: 2s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
+.visitedStartNodePurple {
+  /*border: 1px solid rgb(175, 216, 248);*/
+  background-image: url(styling/triangletwo-right.svg);
+  /*background-color: rgb(255, 254, 106);*/
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  animation-name: visitedStartNodePurpleAnimation;
+  animation-duration: 2s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
+.visitedObjectNode {
+  background-image: url(styling/diamond.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  animation-name: visitedStartNodeBlueAnimation;
+  animation-duration: 2s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
+.visitedTargetNodeBlue {
+  background-image: url(styling/circle.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  animation-name: visitedStartNodeBlueAnimation;
+  animation-duration: 2s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
+.visitedTargetNodePurple {
+  background-image: url(styling/circle.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  animation-name: visitedStartNodePurpleAnimation;
+  animation-duration: 2s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
+@keyframes visitedStartNodePurpleAnimation {
+  0% {
+    transform: scale(0.3);
+    background-color: rgba(41, 4, 24, 0.75);
+    border-radius: 100%;
+  }
+
+  50% {
+    background-color: rgba(97, 0, 20, 0.75);
+  }
+
+  75% {
+    transform: scale(1.2);
+    background-color: rgba(216, 5, 141, 0.75);
+  }
+
+  100% {
+    transform: scale(1);
+    background-color: rgba(178, 67, 255, 0.75);
+  }
+}
+
+@keyframes visitedStartNodeBlueAnimation {
+  0% {
+    transform: scale(0.3);
+    background-color: rgba(0, 0, 66, 0.75);
+    border-radius: 100%;
+  }
+
+  50% {
+    background-color: rgba(17, 104, 217, 0.75);
+  }
+
+  75% {
+    transform: scale(1.2);
+    background-color: rgba(0, 217, 159, 0.75);
+  }
+
+  100% {
+    transform: scale(1);
+    background-color: rgba(0, 190, 218, 0.75);
+  }
+}
+
+.strikethrough {
+  color: rgb(185, 15, 15);
+  text-decoration: line-through;
+}
+
+#algorithmDescriptor {
+  text-align: center;
+  color: #34495e;
+  padding: 15px 25px 15px 25px;
+}
+
+#mainText > ul li {
+  display: inline-block;
+  list-style: none;
+  padding: 0 28px 0 0;
+}
+
+#actualStartButton {
+  /*color: red;*/
+  background-color: none;
+}
+
+#mainGrid {
+  position: absolute;
+  z-index: 1;
+}
+
+#tutorial {
+  position: absolute;
+  z-index: 3;
+  background-color: rgba(255, 255, 255, 1);
+  width: 50%;
+  height: 70%;
+  border: 2px solid #34495e;
+  border-radius: 4px;
+  text-align: center;
+  float: right;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+#nextButton {
+  color: #ffffff;
+  background-color: #1abc9c;
+  position: absolute;
+  right: 2%;
+  bottom: 2%;
+}
+
+#previousButton {
+  color: #ffffff;
+  background-color: #1abc9c;
+  position: absolute;
+  right: 12%;
+  bottom: 2%;
+}
+
+#skipButton {
+  color: #ffffff;
+  background-color: #1abc9c;
+  position: absolute;
+  left: 2%;
+  bottom: 2%;
+}
+
+#finishButton {
+  color: #ffffff;
+  background-color: #1abc9c;
+  position: absolute;
+  right: 2%;
+  bottom: 2%;
+}
+
+#finishButton:hover,
+#nextButton:hover,
+#previousButton:hover,
+#skipButton:hover {
+  background-color: #48c9b0;
+}
+
+#tutorialCounter {
+  position: absolute;
+  right: 2%;
+  top: 2%;
+}
+
+#mainTutorialImage {
+  width: 25%;
+  padding-top: 5px;
+}
+
+#secondTutorialImage {
+  padding-top: 5px;
+}
+
+#tutorial > h3 {
+  padding-bottom: 5px;
+}
+
+#tutorial > h6 {
+  padding: 5px 20px 5px 20px;
+}
+
+#tutorial > p {
+  padding: 5px 20px 5px 20px;
+}
+
+#tutorial > ul li {
+  list-style: none;
+  padding-bottom: 5px;
+  padding-right: 40px;
+  font-size: 14px;
+}
+
+/*#otherText > ul li {
+  display: inline-block;
+  list-style: none;
+  padding: 10px 50px 0 0;
+}*/
+
+#board {
+  border-collapse: collapse;
+}
+
+#mainText div {
+  width: 25px;
+  height: 25px;
+  display: inline-block;
+  position: relative;
+  top: 0.35em;
+  margin: 0 0.42em;
+}
+
+#board {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+#board td {
+  width: 25px;
+  height: 25px;
+}
+
+#startButtonStart {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.instantvisited {
+  border: 1px solid rgb(175, 216, 248);
+  background-color: rgba(0, 190, 218, 0.75);
+  /*background-color: rgba(178, 67, 255, 0.75);*/
+}
+
+.instantvisited.weight {
+  border: 1px solid rgb(175, 216, 248);
+  background-color: rgba(0, 190, 218, 0.75);
+  /*background-color: rgba(178, 67, 255, 0.75);*/
+  background-image: url(styling/weight.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.visited {
+  border: 1px solid rgb(175, 216, 248);
+  animation-name: visitedAnimation;
+  animation-duration: 1.5s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
+.visited.weight {
+  border: 1px solid rgb(175, 216, 248);
+  background-image: url(styling/weight.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  animation-name: visitedAnimation;
+  animation-duration: 1.5s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
+@keyframes visitedAnimation {
+  0% {
+    transform: scale(0.3);
+    background-color: rgba(0, 0, 66, 0.75);
+    border-radius: 100%;
+  }
+
+  50% {
+    background-color: rgba(17, 104, 217, 0.75);
+  }
+
+  75% {
+    transform: scale(1.2);
+    background-color: rgba(0, 217, 159, 0.75);
+  }
+
+  100% {
+    transform: scale(1);
+    background-color: rgba(0, 190, 218, 0.75);
+  }
+}
+
+.wall {
+  animation-name: wallAnimation;
+  animation-duration: 0.3s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
+@keyframes wallAnimation {
+  0% {
+    transform: scale(0.3);
+    background-color: rgb(12, 53, 71);
+  }
+
+  50% {
+    transform: scale(1.2);
+    background-color: rgb(12, 53, 71);
+  }
+
+  100% {
+    transform: scale(1);
+    background-color: rgb(12, 53, 71);
+  }
+}
+
+.instantvisitedobject {
+  border: 1px solid rgb(175, 216, 248);
+  background-color: rgba(178, 67, 255, 0.75);
+  /*background-color: rgba(0, 190, 218, 0.75);*/
+}
+
+.instantvisitedobject.weight {
+  border: 1px solid rgb(175, 216, 248);
+  background-color: rgba(178, 67, 255, 0.75);
+  /*background-color: rgba(0, 190, 218, 0.75);*/
+  background-image: url(styling/weight.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.visitedobject {
+  /*background:red*/
+  border: 1px solid rgb(175, 216, 248);
+  animation-name: visitedObjectAnimation;
+  animation-duration: 1.5s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
+.visitedobject.weight {
+  /*background:red*/
+  border: 1px solid rgb(175, 216, 248);
+  background-image: url(styling/weight.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  animation-name: visitedObjectAnimation;
+  animation-duration: 1.5s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
+@keyframes visitedObjectAnimation {
+  0% {
+    transform: scale(0.3);
+    background-color: rgba(41, 4, 24, 0.75);
+    border-radius: 100%;
+  }
+
+  50% {
+    background-color: rgba(97, 0, 20, 0.75);
+  }
+
+  75% {
+    transform: scale(1.2);
+    background-color: rgba(216, 5, 141, 0.75);
+  }
+
+  100% {
+    transform: scale(1);
+    background-color: rgba(178, 67, 255, 0.75);
+  }
+}
+
+.unvisited {
+  border: 1px solid rgb(175, 216, 248);
+  background-color: white;
+}
+
+.borderlessWeight {
+  background-image: url(styling/weight.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  animation-name: unvisitedWeightAnimation;
+  animation-duration: 0.3s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
+.unvisited.weight {
+  /*border: 1px solid rgb(175, 216, 248);*/
+  background-image: url(styling/weight.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  animation-name: unvisitedWeightAnimation;
+  animation-duration: 0.3s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
+@keyframes unvisitedWeightAnimation {
+  0% {
+    transform: scale(0.3);
+    /*background-color: rgb(12, 53, 71);*/
+  }
+
+  50% {
+    transform: scale(1.2);
+    /*background-color: rgb(12, 53, 71);*/
+  }
+
+  100% {
+    transform: scale(1);
+    /*background-color: rgb(12, 53, 71);*/
+  }
+}
+
+.unvisited.mud {
+  background: brown;
+}
+
+.current {
+  border: 1px solid rgb(175, 216, 248);
+  background-color: rgb(255, 254, 106);
+}
+
+.object {
+  /*border: 1px solid rgb(175, 216, 248);*/
+  background-image: url(styling/diamond.svg);
+  /*background-color: rgb(255, 254, 106);*/
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  animation-name: specialNodes;
+  animation-duration: 2s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
+.instantobjectTransparent {
+  /*border: 1px solid rgb(175, 216, 248);*/
+  opacity: 0.5;
+  background-image: url(styling/diamond.svg);
+  background-color: rgb(255, 254, 106);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.objectTransparent {
+  /*border: 1px solid rgb(175, 216, 248);*/
+  opacity: 0.5;
+  background-image: url(styling/diamond.svg);
+  background-color: rgb(255, 254, 106);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  animation-name: specialNodes;
+  animation-duration: 2s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
+.target {
+  /*border: 1px solid rgb(175, 216, 248);*/
+  background-image: url(styling/circle.svg);
+  /*background-color: rgb(255, 254, 106);*/
+  /*background-color: rgba(232, 147, 12, 0.75);*/
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  animation-name: specialNodes;
+  animation-duration: 2s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
+@keyframes specialNodes {
+  0% {
+    transform: scale(0.3);
+    /*background-color: darkslategrey;*/
+  }
+
+  50% {
+    transform: scale(1.2);
+    /*background-color: darkslategrey;*/
+  }
+
+  100% {
+    transform: scale(1);
+    /*background-color: darkslategrey;*/
+  }
+}
+
+.instantshortest-path {
+  /*border: 1px solid rgb(175, 216, 248);*/
+  background-color: rgb(255, 254, 106);
+}
+
+.instantshortest-path.weight {
+  /*border: 1px solid rgb(175, 216, 248);*/
+  background-color: rgb(255, 254, 106);
+  background-image: url(styling/weight.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.shortest-path {
+  /*border: 1px solid rgb(175, 216, 248);*/
+  background-color: rgb(255, 254, 106);
+  /*background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;*/
+  animation-name: triangletwo;
+  animation-duration: 1.5s;
+  animation-timing-function: linear;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
+.shortest-path.weight {
+  /*border: 1px solid rgb(175, 216, 248);*/
+  background-color: rgb(255, 254, 106);
+  background-image: url(styling/weight.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  animation-name: triangletwo;
+  animation-duration: 1.5s;
+  animation-timing-function: linear;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
+@keyframes triangletwo {
+  0% {
+    transform: scale(0.6);
+    background-color: rgb(255, 254, 106);
+  }
+
+  50% {
+    transform: scale(1.2);
+    background-color: rgb(255, 254, 106);
+  }
+
+  100% {
+    transform: scale(1);
+    background-color: rgb(255, 254, 106);
+  }
+}
+
+.shortest-path-unweighted {
+  /*border: 1px solid rgb(175, 216, 248);*/
+  background: url(styling/spaceshiptwo-up.svg);
+  background-color: rgb(255, 254, 106);
+  background-position: center;
+  background-repeat: no-repeat;
   background-size: contain;
 }
