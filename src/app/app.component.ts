@@ -4,8 +4,6 @@ import {
   ElementRef,
   ViewChild
 } from "@angular/core";
-import Algorithm from "../pathfinding/algorithms/algorithm";
-import AStarAlgorithm from "../pathfinding/algorithms/aStarAlgorithm";
 
 import Board from "../pathfinding/board";
 import Node from "../pathfinding/node";
@@ -16,20 +14,14 @@ import Node from "../pathfinding/node";
   styleUrls: ["./app.component.css", "./styling/cssBasic.css"]
 })
 export class AppComponent implements AfterContentInit {
-  @ViewChild("mapDiv") mapEl: ElementRef;
-  @ViewChild("inputMapWidth") inputMapWidth: ElementRef;
-  @ViewChild("inputMapHeight") inputMapHeight: ElementRef;
-  @ViewChild("inputObstaclesProb") inputObstaclesProb: ElementRef;
-  private algorithm: Algorithm;
-  private animationTimeouts: any[];
+  @ViewChild("navbarDiv") navbarDiv: ElementRef;
+  @ViewChild("mainText") mainText: ElementRef;
+  @ViewChild("algorithmDescriptor") algorithmDescriptor: ElementRef;
+
   public board: Board;
   public buttonsOn: boolean;
 
   constructor() {
-    this.algorithm = new AStarAlgorithm();
-    this.animationTimeouts = [];
-
-    this.board = new Board(20, 14);
     this.buttonsOn = true;
   }
 
@@ -38,13 +30,24 @@ export class AppComponent implements AfterContentInit {
   }
 
   private initializeMap() {
-    // let navbarHeight = $("#navbarDiv").height();
-    // let textHeight =
-    //   $("#mainText").height() + $("#algorithmDescriptor").height();
-    // let height = Math.floor(
-    //   ($(document).height() - navbarHeight - textHeight) / 28
-    // );
-    // let width = Math.floor($(document).width() / 25);
+    const navbarDivHeight = this.navbarDiv.nativeElement.offsetHeight;
+    const mainTextHeight = this.mainText.nativeElement.offsetHeight;
+    const algorithmDescriptorHeight = this.algorithmDescriptor.nativeElement
+      .offsetHeight;
+    const innerWidth = window.innerWidth;
+    const innerHeight = window.innerHeight;
+    const height = Math.floor(
+      (innerHeight -
+        navbarDivHeight -
+        mainTextHeight -
+        algorithmDescriptorHeight) /
+        28
+    );
+    let width = Math.floor(innerWidth / 25);
+
+    console.log("width", width);
+    console.log("height", height);
+    this.board = new Board(width, height);
     this.board.initialise();
   }
 

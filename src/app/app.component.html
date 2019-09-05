@@ -1,6 +1,9 @@
-<layout-header></layout-header>
+<div #navbarDiv>
+  <layout-header></layout-header>
+</div>
+
 <div id="mainGrid">
-  <div id="mainText">
+  <div id="mainText" #mainText>
     <ul>
       <li>
         <div class="start"></div>
@@ -37,7 +40,9 @@
       </li>
     </ul>
   </div>
-  <div id="algorithmDescriptor">Pick an algorithm and visualize it!</div>
+  <div id="algorithmDescriptor" #algorithmDescriptor>
+    Pick an algorithm and visualize it!
+  </div>
   <!-- <div class="board-container" style="padding-top: 250px"> -->
   <table id="board">
     <tr *ngFor="let rows of board.boardArray">
