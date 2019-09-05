@@ -45,8 +45,6 @@ export class AppComponent implements AfterContentInit {
     );
     let width = Math.floor(innerWidth / 25);
 
-    console.log("width", width);
-    console.log("height", height);
     this.board = new Board(width, height);
     this.board.initialise();
   }
